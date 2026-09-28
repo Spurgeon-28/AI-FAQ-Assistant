@@ -1,38 +1,44 @@
-```python
 from flask import Flask, render_template, request, jsonify
 import json
 
 app = Flask(__name__)
 
-# ---------------------------------------------------
-# Load FAQ Knowledge Base
-# ---------------------------------------------------
+
+# =========================================================
+# LOAD FAQ KNOWLEDGE BASE
+# =========================================================
 
 try:
     with open("faqs.json", "r", encoding="utf-8") as file:
         faqs = json.load(file)
 
+    print(f"Loaded {len(faqs)} FAQ entries successfully.")
+
 except FileNotFoundError:
     faqs = []
-    print("Warning: faqs.json was not found.")
+    print("WARNING: faqs.json was not found.")
+
+except json.JSONDecodeError:
+    faqs = []
+    print("WARNING: faqs.json contains invalid JSON.")
 
 
-# ---------------------------------------------------
-# FAQ Matching Function
-# ---------------------------------------------------
+# =========================================================
+# FAQ MATCHING FUNCTION
+# =========================================================
 
 def find_answer(question):
 
     # Convert question to lowercase
     question = question.lower().strip()
 
-    # Remove common punctuation
+    # Remove punctuation
     punctuation = ".,!?;:'\"()[]{}"
 
     for char in punctuation:
         question = question.replace(char, " ")
 
-    # Convert question into words
+    # Convert question into individual words
     question_words = set(question.split())
 
     best_match = None
@@ -43,59 +49,66 @@ def find_answer(question):
 
         score = 0
 
-        for keyword in faq.get("keywords", []):
+        keywords = faq.get("keywords", [])
+
+        for keyword in keywords:
 
             keyword = keyword.lower().strip()
 
-            # -----------------------------------------
+            # ---------------------------------------------
             # Exact phrase matching
-            # -----------------------------------------
+            # ---------------------------------------------
 
             if keyword in question:
                 score += 3
 
-            # -----------------------------------------
+            # ---------------------------------------------
             # Individual word matching
-            # -----------------------------------------
+            # ---------------------------------------------
 
             keyword_words = set(keyword.split())
 
-            matching_words = question_words.intersection(keyword_words)
+            matching_words = (
+                question_words.intersection(keyword_words)
+            )
 
             score += len(matching_words)
 
-        # -----------------------------------------
-        # Store the best FAQ match
-        # -----------------------------------------
+        # ---------------------------------------------
+        # Store best matching FAQ
+        # ---------------------------------------------
 
         if score > best_score:
+
             best_score = score
+
             best_match = faq.get("answer")
 
 
-    # ------------------------------------------------
-    # Return the best answer
-    # ------------------------------------------------
+    # =====================================================
+    # RETURN BEST ANSWER
+    # =====================================================
 
     if best_match and best_score >= 2:
         return best_match
 
 
-    # ------------------------------------------------
-    # Fallback response
-    # ------------------------------------------------
+    # =====================================================
+    # FALLBACK RESPONSE
+    # =====================================================
 
     return (
-        "Sorry, I couldn't find a suitable answer to that question. "
-        "Please try asking about Naan Mudhalvan courses, registration, "
-        "eligibility, training, certificates, internships, placements, "
-        "or career opportunities."
+        "Sorry, I couldn't find a suitable answer to that "
+        "question. Please try asking about Naan Mudhalvan "
+        "courses, registration, eligibility, training, "
+        "certificates, internships, placements, or "
+        "career opportunities."
     )
 
 
-# ---------------------------------------------------
-# Home Page
-# ---------------------------------------------------
+# =========================================================
+# HOME PAGE
+# =========================================================
 
 @app.route("/")
 def home():
@@ -103,17 +116,23 @@ def home():
     return render_template("index.html")
 
 
-# ---------------------------------------------------
-# Ask API
-# ---------------------------------------------------
+# =========================================================
+# ASK API
+# =========================================================
 
 @app.route("/ask", methods=["POST"])
 def ask():
 
     try:
 
-        # Get JSON data from the frontend
+        # Get JSON data from frontend
         data = request.get_json()
+
+        # Handle missing JSON
+        if not data:
+            return jsonify({
+                "answer": "Please enter a question."
+            })
 
         # Get user's question
         question = data.get("question", "").strip()
@@ -149,28 +168,32 @@ def ask():
 
     except Exception as error:
 
-        print("Error:", error)
+        print("ERROR:", error)
 
         return jsonify({
-            "answer": "Sorry, something went wrong. Please try again."
+            "answer": (
+                "Sorry, something went wrong. "
+                "Please try again."
+            )
         }), 500
 
 
-# ---------------------------------------------------
-# Run Flask Application
-# ---------------------------------------------------
+# =========================================================
+# RUN APPLICATION
+# =========================================================
 
 if __name__ == "__main__":
 
-    print("---------------------------------------------")
-    print(" Naan Mudhalvan AI FAQ Assistant")
-    print("---------------------------------------------")
-    print("Server running at: http://127.0.0.1:5000")
-    print("---------------------------------------------")
+    print()
+    print("==============================================")
+    print("     NAAN MUDHALVAN AI FAQ ASSISTANT")
+    print("==============================================")
+    print("Server: http://127.0.0.1:5000")
+    print("==============================================")
+    print()
 
     app.run(
         host="127.0.0.1",
         port=5000,
         debug=True
     )
-```
