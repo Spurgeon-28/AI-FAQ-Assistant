@@ -1,231 +1,1513 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Naan Mudhalvan AI FAQ Assistant</title>
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Naan Mudhalvan AI FAQ Assistant">
+
+    <title>Naan Mudhalvan | AI FAQ Assistant</title>
+
 
     <style>
+
+        /* =====================================================
+           GLOBAL
+        ===================================================== */
+
         * {
+            margin: 0;
+            padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f4f7fb;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --background: #f5f7fb;
+            --card: #ffffff;
+            --text: #111827;
+            --muted: #6b7280;
+            --border: #e5e7eb;
+            --bot-bg: #f1f5f9;
+            --success: #22c55e;
         }
 
-        .chat-container {
-            width: 90%;
-            max-width: 700px;
-            height: 85vh;
-            background: white;
-            border-radius: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+
+        body {
+
+            font-family:
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at top left,
+                    rgba(37, 99, 235, 0.12),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    rgba(124, 58, 237, 0.10),
+                    transparent 35%
+                ),
+                var(--background);
+
+            min-height: 100vh;
+
             display: flex;
-            flex-direction: column;
-            overflow: hidden;
+
+            justify-content: center;
+
+            align-items: center;
+
+            color: var(--text);
+
+            padding: 20px;
+
         }
+
+
+        /* =====================================================
+           MAIN CONTAINER
+        ===================================================== */
+
+        .app {
+
+            width: 100%;
+
+            max-width: 1000px;
+
+            height: 92vh;
+
+            min-height: 600px;
+
+            background: var(--card);
+
+            border-radius: 24px;
+
+            overflow: hidden;
+
+            display: flex;
+
+            flex-direction: column;
+
+            box-shadow:
+                0 25px 70px rgba(15, 23, 42, 0.15);
+
+            border: 1px solid rgba(255,255,255,0.8);
+
+        }
+
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
 
         .header {
-            background: #174ea6;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #1d4ed8,
+                    #2563eb,
+                    #7c3aed
+                );
+
             color: white;
-            padding: 22px;
-            text-align: center;
+
+            padding: 22px 28px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            position: relative;
+
+            overflow: hidden;
+
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 24px;
+
+        .header::before {
+
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+
+            height: 250px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.08);
+
+            top: -140px;
+
+            right: -50px;
+
         }
 
-        .header p {
-            margin: 7px 0 0;
-            font-size: 14px;
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            z-index: 1;
+
         }
 
-        .chat-box {
+
+        .logo {
+
+            width: 52px;
+
+            height: 52px;
+
+            border-radius: 16px;
+
+            background: rgba(255,255,255,0.18);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 27px;
+
+            backdrop-filter: blur(10px);
+
+            border: 1px solid rgba(255,255,255,0.25);
+
+        }
+
+
+        .brand h1 {
+
+            font-size: 20px;
+
+            font-weight: 700;
+
+            letter-spacing: -0.3px;
+
+        }
+
+
+        .brand p {
+
+            font-size: 13px;
+
+            opacity: 0.85;
+
+            margin-top: 4px;
+
+        }
+
+
+        .status {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            font-size: 12px;
+
+            background: rgba(255,255,255,0.12);
+
+            padding: 8px 12px;
+
+            border-radius: 20px;
+
+            z-index: 1;
+
+        }
+
+
+        .status-dot {
+
+            width: 8px;
+
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: var(--success);
+
+            box-shadow: 0 0 10px rgba(34,197,94,0.8);
+
+        }
+
+
+        /* =====================================================
+           CHAT AREA
+        ===================================================== */
+
+        .chat-area {
+
             flex: 1;
-            padding: 20px;
+
             overflow-y: auto;
+
+            padding: 30px;
+
+            scroll-behavior: smooth;
+
         }
+
+
+        .welcome {
+
+            text-align: center;
+
+            margin: 15px auto 28px;
+
+            max-width: 650px;
+
+        }
+
+
+        .welcome-icon {
+
+            width: 70px;
+
+            height: 70px;
+
+            margin: auto;
+
+            border-radius: 22px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 34px;
+
+            color: white;
+
+            box-shadow:
+                0 12px 30px rgba(37,99,235,0.25);
+
+        }
+
+
+        .welcome h2 {
+
+            margin-top: 16px;
+
+            font-size: 25px;
+
+        }
+
+
+        .welcome p {
+
+            color: var(--muted);
+
+            margin-top: 8px;
+
+            font-size: 14px;
+
+        }
+
+
+        /* =====================================================
+           SUGGESTED QUESTIONS
+        ===================================================== */
+
+        .suggestions {
+
+            display: flex;
+
+            flex-wrap: wrap;
+
+            justify-content: center;
+
+            gap: 9px;
+
+            margin-top: 20px;
+
+        }
+
+
+        .suggestion {
+
+            border: 1px solid var(--border);
+
+            background: white;
+
+            color: #374151;
+
+            border-radius: 20px;
+
+            padding: 9px 14px;
+
+            cursor: pointer;
+
+            font-size: 13px;
+
+            transition: all 0.2s ease;
+
+        }
+
+
+        .suggestion:hover {
+
+            border-color: var(--primary);
+
+            color: var(--primary);
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 5px 15px rgba(37,99,235,0.10);
+
+        }
+
+
+        /* =====================================================
+           MESSAGES
+        ===================================================== */
 
         .message {
-            margin-bottom: 15px;
+
             display: flex;
+
+            margin-bottom: 20px;
+
+            animation:
+                messageIn 0.25s ease;
+
         }
 
-        .user {
+
+        @keyframes messageIn {
+
+            from {
+
+                opacity: 0;
+
+                transform: translateY(8px);
+
+            }
+
+            to {
+
+                opacity: 1;
+
+                transform: translateY(0);
+
+            }
+
+        }
+
+
+        .message.user {
+
             justify-content: flex-end;
+
         }
 
-        .bot {
+
+        .message.bot {
+
             justify-content: flex-start;
+
         }
 
-        .message span {
+
+        .bubble {
+
             max-width: 75%;
-            padding: 12px 16px;
-            border-radius: 15px;
-            line-height: 1.5;
+
+            padding: 14px 17px;
+
+            border-radius: 18px;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
         }
 
-        .user span {
-            background: #174ea6;
+
+        .user .bubble {
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #1d4ed8
+                );
+
             color: white;
-            border-bottom-right-radius: 4px;
+
+            border-bottom-right-radius: 5px;
+
+            box-shadow:
+                0 7px 18px rgba(37,99,235,0.18);
+
         }
 
-        .bot span {
-            background: #eef2f7;
-            color: #222;
-            border-bottom-left-radius: 4px;
+
+        .bot .bubble {
+
+            background: var(--bot-bg);
+
+            color: #1f2937;
+
+            border-bottom-left-radius: 5px;
+
+            border: 1px solid #e5e7eb;
+
         }
 
-        .input-area {
+
+        .bot-label {
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            color: var(--primary);
+
+            margin-bottom: 5px;
+
+        }
+
+
+        /* =====================================================
+           TYPING INDICATOR
+        ===================================================== */
+
+        .typing {
+
             display: flex;
-            padding: 15px;
-            border-top: 1px solid #ddd;
-            gap: 10px;
+
+            align-items: center;
+
+            gap: 5px;
+
+            padding: 4px 0;
+
         }
+
+
+        .typing span {
+
+            width: 7px;
+
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #94a3b8;
+
+            animation: typing 1.2s infinite;
+
+        }
+
+
+        .typing span:nth-child(2) {
+
+            animation-delay: 0.15s;
+
+        }
+
+
+        .typing span:nth-child(3) {
+
+            animation-delay: 0.30s;
+
+        }
+
+
+        @keyframes typing {
+
+            0%, 60%, 100% {
+
+                transform: translateY(0);
+
+                opacity: 0.5;
+
+            }
+
+            30% {
+
+                transform: translateY(-5px);
+
+                opacity: 1;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           INPUT AREA
+        ===================================================== */
+
+        .input-wrapper {
+
+            padding: 16px 22px 20px;
+
+            border-top: 1px solid var(--border);
+
+            background: rgba(255,255,255,0.96);
+
+        }
+
+
+        .input-box {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            background: #f8fafc;
+
+            border: 1px solid #dbe2ea;
+
+            border-radius: 16px;
+
+            padding: 6px;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .input-box:focus-within {
+
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 4px rgba(37,99,235,0.08);
+
+        }
+
 
         #question {
+
             flex: 1;
-            padding: 13px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            font-size: 15px;
-            outline: none;
-        }
 
-        button {
-            padding: 13px 20px;
             border: none;
-            border-radius: 10px;
-            background: #174ea6;
-            color: white;
-            cursor: pointer;
-            font-size: 15px;
+
+            outline: none;
+
+            background: transparent;
+
+            padding: 13px 12px;
+
+            font-size: 14px;
+
+            color: var(--text);
+
         }
 
-        button:hover {
-            background: #123d82;
+
+        #question::placeholder {
+
+            color: #9ca3af;
+
         }
+
+
+        .send-button {
+
+            width: 48px;
+
+            height: 48px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #2563eb,
+                    #7c3aed
+                );
+
+            color: white;
+
+            cursor: pointer;
+
+            font-size: 19px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transition: 0.2s ease;
+
+        }
+
+
+        .send-button:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 8px 20px rgba(37,99,235,0.25);
+
+        }
+
+
+        .send-button:active {
+
+            transform: scale(0.95);
+
+        }
+
+
+        .send-button:disabled {
+
+            opacity: 0.5;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+        }
+
+
+        .footer-text {
+
+            text-align: center;
+
+            font-size: 11px;
+
+            color: #9ca3af;
+
+            margin-top: 9px;
+
+        }
+
+
+        /* =====================================================
+           CLEAR BUTTON
+        ===================================================== */
+
+        .clear-button {
+
+            position: absolute;
+
+            right: 24px;
+
+            bottom: 95px;
+
+            border: none;
+
+            background: white;
+
+            color: #6b7280;
+
+            border: 1px solid var(--border);
+
+            border-radius: 20px;
+
+            padding: 7px 12px;
+
+            font-size: 11px;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 5px 15px rgba(0,0,0,0.08);
+
+            display: none;
+
+        }
+
+
+        .clear-button:hover {
+
+            color: #ef4444;
+
+            border-color: #fecaca;
+
+        }
+
+
+        /* =====================================================
+           SCROLLBAR
+        ===================================================== */
+
+        .chat-area::-webkit-scrollbar {
+
+            width: 6px;
+
+        }
+
+
+        .chat-area::-webkit-scrollbar-thumb {
+
+            background: #cbd5e1;
+
+            border-radius: 10px;
+
+        }
+
+
+        /* =====================================================
+           MOBILE
+        ===================================================== */
+
+        @media (max-width: 700px) {
+
+            body {
+
+                padding: 0;
+
+            }
+
+
+            .app {
+
+                width: 100%;
+
+                height: 100vh;
+
+                min-height: 100vh;
+
+                border-radius: 0;
+
+            }
+
+
+            .header {
+
+                padding: 17px;
+
+            }
+
+
+            .brand h1 {
+
+                font-size: 16px;
+
+            }
+
+
+            .brand p {
+
+                font-size: 11px;
+
+            }
+
+
+            .logo {
+
+                width: 45px;
+
+                height: 45px;
+
+            }
+
+
+            .status {
+
+                display: none;
+
+            }
+
+
+            .chat-area {
+
+                padding: 20px 15px;
+
+            }
+
+
+            .bubble {
+
+                max-width: 88%;
+
+            }
+
+
+            .welcome h2 {
+
+                font-size: 21px;
+
+            }
+
+
+            .suggestion {
+
+                font-size: 12px;
+
+            }
+
+
+            .input-wrapper {
+
+                padding: 12px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
-<div class="chat-container">
 
-    <div class="header">
-        <h1>🤖 Naan Mudhalvan AI FAQ Assistant</h1>
-        <p>Ask questions about courses, registration, training and placements</p>
-    </div>
+<div class="app">
 
-    <div class="chat-box" id="chatBox">
 
-        <div class="message bot">
-            <span>
-                Hello! 👋 I'm the Naan Mudhalvan AI FAQ Assistant.
+    <!-- =================================================
+         HEADER
+    ================================================= -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="logo">
+                🤖
+            </div>
+
+            <div>
+
+                <h1>
+                    Naan Mudhalvan AI
+                </h1>
+
+                <p>
+                    Intelligent FAQ Assistant
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="status">
+
+            <span class="status-dot"></span>
+
+            Online
+
+        </div>
+
+    </header>
+
+
+    <!-- =================================================
+         CHAT AREA
+    ================================================= -->
+
+    <main class="chat-area" id="chatBox">
+
+
+        <!-- Welcome -->
+
+        <div class="welcome" id="welcome">
+
+            <div class="welcome-icon">
+                🤖
+            </div>
+
+            <h2>
                 How can I help you?
-            </span>
+            </h2>
+
+            <p>
+                Ask me anything about Naan Mudhalvan courses,
+                training, registration, certificates and career opportunities.
+            </p>
+
+
+            <div class="suggestions">
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('What is Naan Mudhalvan?')">
+
+                    What is Naan Mudhalvan?
+
+                </button>
+
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('What courses are available?')">
+
+                    Available courses
+
+                </button>
+
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('How can I register?')">
+
+                    How to register?
+
+                </button>
+
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('Can I get a certificate?')">
+
+                    Certificate
+
+                </button>
+
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('What placement opportunities are available?')">
+
+                    Placements
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- =================================================
+         CLEAR CHAT
+    ================================================= -->
+
+    <button
+        class="clear-button"
+        id="clearButton"
+        onclick="clearChat()">
+
+        🗑 Clear chat
+
+    </button>
+
+
+    <!-- =================================================
+         INPUT AREA
+    ================================================= -->
+
+    <div class="input-wrapper">
+
+        <div class="input-box">
+
+            <input
+                type="text"
+                id="question"
+                autocomplete="off"
+                placeholder="Ask about Naan Mudhalvan..."
+                onkeydown="handleKey(event)"
+            >
+
+
+            <button
+                class="send-button"
+                id="sendButton"
+                onclick="askQuestion()">
+
+                ➤
+
+            </button>
+
+        </div>
+
+
+        <div class="footer-text">
+
+            Naan Mudhalvan AI FAQ Assistant • Powered by Flask
+
         </div>
 
     </div>
 
-    <div class="input-area">
-
-        <input
-            type="text"
-            id="question"
-            placeholder="Ask your question..."
-            onkeydown="handleKey(event)"
-        >
-
-        <button onclick="askQuestion()">Send</button>
-
-    </div>
 
 </div>
 
+
 <script>
 
-async function askQuestion() {
+    /* =====================================================
+       ELEMENTS
+    ===================================================== */
 
-    const input = document.getElementById("question");
-    const question = input.value.trim();
+    const chatBox =
+        document.getElementById("chatBox");
 
-    if (!question) {
-        return;
-    }
+    const questionInput =
+        document.getElementById("question");
 
-    addMessage(question, "user");
+    const sendButton =
+        document.getElementById("sendButton");
 
-    input.value = "";
+    const clearButton =
+        document.getElementById("clearButton");
 
-    try {
+    const welcome =
+        document.getElementById("welcome");
 
-        const response = await fetch("/ask", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                question: question
-            })
-        });
 
-        const data = await response.json();
+    /* =====================================================
+       ASK QUESTION
+    ===================================================== */
 
-        addMessage(data.answer, "bot");
+    async function askQuestion() {
 
-    } catch (error) {
+        const question =
+            questionInput.value.trim();
+
+
+        if (!question) {
+
+            return;
+
+        }
+
+
+        // Hide welcome section
+
+        if (welcome) {
+
+            welcome.style.display = "none";
+
+        }
+
+
+        // Add user message
 
         addMessage(
-            "Sorry, something went wrong. Please try again.",
-            "bot"
+            question,
+            "user"
         );
 
+
+        // Clear input
+
+        questionInput.value = "";
+
+
+        // Disable button
+
+        sendButton.disabled = true;
+
+
+        // Show typing indicator
+
+        const typingId =
+            showTyping();
+
+
+        try {
+
+            const response =
+                await fetch(
+                    "/ask",
+                    {
+                        method: "POST",
+
+                        headers: {
+                            "Content-Type":
+                                "application/json"
+                        },
+
+                        body: JSON.stringify({
+                            question: question
+                        })
+                    }
+                );
+
+
+            const data =
+                await response.json();
+
+
+            // Remove typing indicator
+
+            removeTyping(typingId);
+
+
+            // Show answer
+
+            addMessage(
+                data.answer,
+                "bot"
+            );
+
+
+        }
+
+        catch (error) {
+
+            removeTyping(typingId);
+
+
+            addMessage(
+                "Sorry, I couldn't connect to the assistant. Please try again.",
+                "bot"
+            );
+
+            console.error(error);
+
+        }
+
+
+        finally {
+
+            sendButton.disabled = false;
+
+            questionInput.focus();
+
+        }
+
     }
-}
 
 
-function addMessage(message, sender) {
+    /* =====================================================
+       ADD MESSAGE
+    ===================================================== */
 
-    const chatBox = document.getElementById("chatBox");
+    function addMessage(
+        message,
+        sender
+    ) {
 
-    const messageDiv = document.createElement("div");
-
-    messageDiv.className = "message " + sender;
-
-    const span = document.createElement("span");
-
-    span.textContent = message;
-
-    messageDiv.appendChild(span);
-
-    chatBox.appendChild(messageDiv);
-
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+        const messageDiv =
+            document.createElement("div");
 
 
-function handleKey(event) {
+        messageDiv.className =
+            `message ${sender}`;
 
-    if (event.key === "Enter") {
+
+        const bubble =
+            document.createElement("div");
+
+
+        bubble.className =
+            "bubble";
+
+
+        if (sender === "bot") {
+
+            const label =
+                document.createElement("div");
+
+            label.className =
+                "bot-label";
+
+            label.textContent =
+                "🤖 Naan Mudhalvan AI";
+
+            bubble.appendChild(label);
+
+        }
+
+
+        const text =
+            document.createElement("div");
+
+
+        text.textContent =
+            message;
+
+
+        bubble.appendChild(text);
+
+
+        messageDiv.appendChild(
+            bubble
+        );
+
+
+        chatBox.appendChild(
+            messageDiv
+        );
+
+
+        scrollToBottom();
+
+
+        clearButton.style.display =
+            "block";
+
+    }
+
+
+    /* =====================================================
+       TYPING INDICATOR
+    ===================================================== */
+
+    function showTyping() {
+
+        const id =
+            "typing-" + Date.now();
+
+
+        const messageDiv =
+            document.createElement("div");
+
+
+        messageDiv.className =
+            "message bot";
+
+        messageDiv.id = id;
+
+
+        messageDiv.innerHTML = `
+
+            <div class="bubble">
+
+                <div class="bot-label">
+                    🤖 Naan Mudhalvan AI
+                </div>
+
+                <div class="typing">
+
+                    <span></span>
+                    <span></span>
+                    <span></span>
+
+                </div>
+
+            </div>
+
+        `;
+
+
+        chatBox.appendChild(
+            messageDiv
+        );
+
+
+        scrollToBottom();
+
+
+        return id;
+
+    }
+
+
+    /* =====================================================
+       REMOVE TYPING
+    ===================================================== */
+
+    function removeTyping(id) {
+
+        const element =
+            document.getElementById(id);
+
+
+        if (element) {
+
+            element.remove();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       SUGGESTION BUTTON
+    ===================================================== */
+
+    function useSuggestion(
+        text
+    ) {
+
+        questionInput.value =
+            text;
+
         askQuestion();
+
     }
 
-}
+
+    /* =====================================================
+       ENTER KEY
+    ===================================================== */
+
+    function handleKey(event) {
+
+        if (
+            event.key === "Enter" &&
+            !event.shiftKey
+        ) {
+
+            event.preventDefault();
+
+            askQuestion();
+
+        }
+
+    }
+
+
+    /* =====================================================
+       CLEAR CHAT
+    ===================================================== */
+
+    function clearChat() {
+
+        chatBox.innerHTML = "";
+
+
+        // Re-create welcome section
+
+        const welcomeDiv =
+            document.createElement("div");
+
+
+        welcomeDiv.className =
+            "welcome";
+
+
+        welcomeDiv.id =
+            "welcome";
+
+
+        welcomeDiv.innerHTML = `
+
+            <div class="welcome-icon">
+                🤖
+            </div>
+
+            <h2>
+                How can I help you?
+            </h2>
+
+            <p>
+                Ask me anything about Naan Mudhalvan courses,
+                training, registration, certificates and career opportunities.
+            </p>
+
+            <div class="suggestions">
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('What is Naan Mudhalvan?')">
+
+                    What is Naan Mudhalvan?
+
+                </button>
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('What courses are available?')">
+
+                    Available courses
+
+                </button>
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('How can I register?')">
+
+                    How to register?
+
+                </button>
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('Can I get a certificate?')">
+
+                    Certificate
+
+                </button>
+
+                <button
+                    class="suggestion"
+                    onclick="useSuggestion('What placement opportunities are available?')">
+
+                    Placements
+
+                </button>
+
+            </div>
+
+        `;
+
+
+        chatBox.appendChild(
+            welcomeDiv
+        );
+
+
+        clearButton.style.display =
+            "none";
+
+
+        questionInput.focus();
+
+    }
+
+
+    /* =====================================================
+       AUTO SCROLL
+    ===================================================== */
+
+    function scrollToBottom() {
+
+        chatBox.scrollTop =
+            chatBox.scrollHeight;
+
+    }
+
+
+    /* =====================================================
+       INITIAL FOCUS
+    ===================================================== */
+
+    window.addEventListener(
+        "load",
+        () => {
+
+            questionInput.focus();
+
+        }
+    );
 
 </script>
 
+
 </body>
+
 </html>
+```

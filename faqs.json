@@ -1,42 +1,82 @@
 [
     {
-        "keywords": ["what is naan mudhalvan", "naan mudhalvan", "about naan mudhalvan"],
-        "answer": "Naan Mudhalvan is a skill development initiative of the Government of Tamil Nadu that aims to enhance students' skills and improve their career opportunities."
+        "keywords": ["what is naan mudhalvan", "about naan mudhalvan", "naan mudhalvan"],
+        "answer": "Naan Mudhalvan is a skill development initiative of the Government of Tamil Nadu that aims to provide students with industry-relevant skills, training and career opportunities."
     },
     {
-        "keywords": ["registration", "register", "sign up", "signup"],
-        "answer": "Students can register and access Naan Mudhalvan services through the official Naan Mudhalvan platform. Registration requirements may depend on the student's institution and course."
+        "keywords": ["registration", "register", "sign up", "signup", "how to register"],
+        "answer": "Students can register and access Naan Mudhalvan services through the official Naan Mudhalvan platform. Registration requirements may vary depending on the institution and program."
     },
     {
-        "keywords": ["course", "courses", "training course"],
-        "answer": "Naan Mudhalvan provides various skill development courses and training programs designed to improve students' technical and employability skills."
+        "keywords": ["eligibility", "eligible", "who can join", "who is eligible"],
+        "answer": "Eligibility depends on the specific Naan Mudhalvan course or training program. Students should check the eligibility requirements of their selected program."
     },
     {
-        "keywords": ["eligibility", "eligible", "who can join"],
-        "answer": "Eligibility depends on the specific Naan Mudhalvan course or training program. Students should check the requirements provided for their particular program."
+        "keywords": ["courses", "course", "available courses", "training courses"],
+        "answer": "Naan Mudhalvan offers various skill development courses covering technical skills, emerging technologies, communication and employability skills."
+    },
+    {
+        "keywords": ["how to enroll", "enroll", "enrolment", "enrollment", "join course"],
+        "answer": "Students can select an available training program through the Naan Mudhalvan platform and follow the enrollment instructions provided for their institution or course."
+    },
+    {
+        "keywords": ["training", "training program", "skill training"],
+        "answer": "Naan Mudhalvan provides industry-oriented training programs designed to improve students' technical and employability skills."
     },
     {
         "keywords": ["certificate", "certification", "certificate after course"],
-        "answer": "Students may receive certificates after successfully completing eligible Naan Mudhalvan training programs and meeting the required assessment criteria."
+        "answer": "Eligible students may receive a certificate after successfully completing the required training and assessments."
     },
     {
-        "keywords": ["placement", "job", "employment"],
-        "answer": "Naan Mudhalvan supports students with skill development and career opportunities, including activities related to placements and employment."
+        "keywords": ["placement", "placements", "job", "jobs", "employment"],
+        "answer": "Naan Mudhalvan supports students in developing industry-relevant skills and provides career and placement-related opportunities through its programs."
     },
     {
-        "keywords": ["internship", "internships"],
-        "answer": "Naan Mudhalvan provides opportunities and support related to internships and industry exposure through participating programs."
+        "keywords": ["internship", "internships", "industry exposure"],
+        "answer": "Students may get opportunities for internships and industry exposure through relevant Naan Mudhalvan programs and partner organizations."
     },
     {
-        "keywords": ["assessment", "exam", "test"],
-        "answer": "Some Naan Mudhalvan courses include assessments or examinations to evaluate the student's learning and completion of the training."
+        "keywords": ["assessment", "assessments", "exam", "test", "evaluation"],
+        "answer": "Some training programs include assessments or examinations to evaluate the student's understanding and successful completion of the course."
     },
     {
-        "keywords": ["login", "cannot login", "login problem"],
-        "answer": "If you are unable to log in, first check your registered credentials and internet connection. If the problem continues, contact the appropriate Naan Mudhalvan or institutional support."
+        "keywords": ["login", "login problem", "cannot login", "password", "username"],
+        "answer": "If you have trouble logging in, check your registered credentials and internet connection. If the problem continues, contact your institution or the appropriate Naan Mudhalvan support."
     },
     {
-        "keywords": ["student", "students"],
-        "answer": "Naan Mudhalvan is designed to help students develop industry-relevant skills and improve their career readiness."
+        "keywords": ["student", "students", "who can participate"],
+        "answer": "Naan Mudhalvan primarily focuses on helping students develop industry-relevant skills and improve their career readiness."
+    },
+    {
+        "keywords": ["benefits", "advantage", "advantages", "why naan mudhalvan"],
+        "answer": "Naan Mudhalvan helps students gain industry-relevant skills, improve employability, access training opportunities and prepare for career opportunities."
+    },
+    {
+        "keywords": ["skills", "skill development", "technical skills"],
+        "answer": "The initiative focuses on developing technical, digital, communication and employability skills that are relevant to current industry requirements."
+    },
+    {
+        "keywords": ["career", "career opportunities", "career development"],
+        "answer": "Naan Mudhalvan supports career development by providing skill training, industry exposure and opportunities that can improve students' employability."
+    },
+    {
+        "keywords": ["technical skills", "technology", "it skills"],
+        "answer": "Students can develop technology and industry-oriented skills through various training programs offered under Naan Mudhalvan."
+    },
+    {
+        "keywords": ["communication skills", "soft skills", "softskill"],
+        "answer": "Some programs include communication, professional and employability skills to help students become more confident and career-ready."
+    },
+    {
+        "keywords": ["course completion", "complete course", "finish course"],
+        "answer": "Students should complete the required learning activities, training sessions and assessments specified by their selected program."
+    },
+    {
+        "keywords": ["attendance", "training attendance", "absent"],
+        "answer": "Students are expected to follow the attendance requirements specified by their institution or training program."
+    },
+    {
+        "keywords": ["support", "help", "contact", "contact support"],
+        "answer": "For account, course or training-related issues, students should contact their institution or the appropriate Naan Mudhalvan support channel."
     }
 ]
